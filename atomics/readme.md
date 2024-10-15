@@ -1,3 +1,11 @@
+
+## output of atomicAdd.cu
+
+```cpp
+Non-atomic counter value: 17
+Atomic counter value: 1000000
+```
+
 # What are Atomic Operations
     
 by “atomic” we are referring to the indivisibility concept in physics where a thing cannot be broken down further.
@@ -127,9 +135,4 @@ int main() {
 }
 ```
 
-## output of atomicAdd.cu
 
-```cpp
-Non-atomic counter value: 17
-Atomic counter value: 1000000
-```
