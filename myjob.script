@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#SBATCH -J runtime
+#SBATCH -p general
+#SBATCH --nodes=5
+#SBATCH --ntasks-per-node=1
+#SBATCH --time=01:00:00
+#SBATCH --mem=2G
+#SBATCH -A r00827
+
+module load python
+
+pip install GraphRicciCurvature
+Pip install scikit-learn
+
+python Test.py
