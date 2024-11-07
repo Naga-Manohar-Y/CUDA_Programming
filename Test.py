@@ -218,13 +218,14 @@ print("Sample node attributes:")
 for node, attrs in list(G_t.nodes(data=True))[:5]:  # Adjust sample size as needed
     print(f"Node {node}: {attrs}")
 
-
-
+print('Ricci curvature computation started')
+import time
+start_time = time.time()
 orf3 = OllivierRicci(G_t, method="ATD", alpha=0.5, base=math.e, exp_power=1, proc=44, verbose="INFO")
 
 # Do Ricci flow for 2 iterations
 orf3.compute_ricci_flow(iterations=50)
-
+print('Time', time.time() - start_time)
 g_rf_s = orf3.G.copy()
 show_results(g_rf_s)
 
