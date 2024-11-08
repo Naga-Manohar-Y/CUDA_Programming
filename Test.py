@@ -227,7 +227,7 @@ start_time = time.time()
 orf3 = OllivierRicci(G_t, method="ATD", alpha=0.5, base=math.e, exp_power=1, proc=44, verbose="INFO")
 
 # Do Ricci flow for 2 iterations
-orf3.compute_ricci_flow(iterations=2)
+orf3.compute_ricci_flow(iterations=1)
 print('Time', time.time() - start_time)
 g_rf_s = orf3.G.copy()
 show_results(g_rf_s)
