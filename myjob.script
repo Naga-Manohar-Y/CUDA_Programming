@@ -3,7 +3,7 @@
 #SBATCH -J runtime
 #SBATCH -p general
 #SBATCH --nodes=5
-#SBATCH --ntasks-per-node=60
+#SBATCH --ntasks-per-node=50
 #SBATCH --time=01:00:00
 #SBATCH --mem=8G
 #SBATCH -A r00827
