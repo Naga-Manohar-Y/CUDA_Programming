@@ -224,11 +224,13 @@ print("Number of available processors:", multiprocessing.cpu_count())
 print('Ricci curvature computation started')
 import time
 start_time = time.time()
-orf3 = OllivierRicci(G_t, method="ATD", alpha=0.5, base=math.e, exp_power=1, proc=150, verbose="INFO")
+orf3 = OllivierRicci(G_t, method="OTD", alpha=0.5, base=math.e, exp_power=1, proc=250, verbose="INFO")
 
 # Do Ricci flow for 2 iterations
-orf3.compute_ricci_flow(iterations=1)
+orf3.compute_ricci_flow(iterations=30)
 print('Time', time.time() - start_time)
+print('Time in Minutes:', (time.time() - start_time)//60)
+
 g_rf_s = orf3.G.copy()
 show_results(g_rf_s)
 
