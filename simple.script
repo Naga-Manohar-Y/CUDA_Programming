@@ -1,0 +1,51 @@
+#!/bin/bash
+
+#SBATCH --job-name=test_single         ### Name of the job
+#SBATCH --ntasks=1                     ### Single task since it's one graph
+#SBATCH --cpus-per-task=1              ### One CPU per task
+#SBATCH --mem-per-cpu=16000            ### 16GB memory
+#SBATCH --partition=medium             ### Cheaha Partition
+#SBATCH --time=1:00:00                 ### Estimated time
+#SBATCH --output=%x.out                ### Slurm output file
+#SBATCH --error=%x.err                 ### Slurm error file
+#SBATCH --mail-type=END
+#SBATCH --mail-user=nayelub@iu.edu
+module load Anaconda3
+
+# Parameters
+graph_file="fb-CMU-Carnegie49.edges"
+label_file="fb-CMU-Carnegie49.node_labels"
+algorithms="ATD OTD Sinkhorn"
+step_sizes="1 0.1 0.01 0.001"
+
+run_jobs() {
+    for alg in $algorithms; do
+        for step in $step_sizes; do
+            srun --nodes=1 --ntasks=1 -c 1 --time=00:30:00 --exclusive \
+                python sim-example.py $graph_file $label_file $alg $step >>res-$alg-$step.out &
+        done
+    done
+}
+
+get_results() {
+    result="results.out"
+    rm -f $result
+    echo "Algorithm,Step Size,Result" >>$result
+
+    for alg in $algorithms; do
+        for step in $step_sizes; do
+            outfile="res-$alg-$step.out"
+            if [ -f "$outfile" ]; then
+                value=$(grep "<== $graph_file" $outfile | awk '{print $NF}')
+                echo "$alg,$step,$value" >>$result
+            else
+                echo "$alg,$step,Error" >>$result
+            fi
+        done
+    done
+    cat $result
+}
+
+run_jobs
+wait
+get_results

@@ -48,24 +48,6 @@ def show_results(G, curvature="ricciCurvature"):
 
 
 def ARI(G, clustering, clustering_label="club"):
-    """
-    Computer the Adjust Rand Index (clustering accuracy) of "clustering" with "clustering_label" as ground truth.
-
-    Parameters
-    ----------
-    G : NetworkX graph
-        A given NetworkX graph with node attribute "clustering_label" as ground truth.
-    clustering : dict or list or list of set
-        Predicted community clustering.
-    clustering_label : str
-        Node attribute name for ground truth.
-
-    Returns
-    -------
-    ari : float
-        Adjust Rand Index for predicted community.
-    """
-
     complex_list = nx.get_node_attributes(G, clustering_label)
 
     le = preprocessing.LabelEncoder()
@@ -89,22 +71,6 @@ def ARI(G, clustering, clustering_label="club"):
 
 
 def my_surgery(G_origin: nx.Graph(), weight="weight", cut=0):
-    """A simple surgery function that remove the edges with weight above a threshold
-
-    Parameters
-    ----------
-    G_origin : NetworkX graph
-        A graph with ``weight`` as Ricci flow metric to cut.
-    weight: str
-        The edge weight used as Ricci flow metric. (Default value = "weight")
-    cut: float
-        Manually assigned cutoff point.
-
-    Returns
-    -------
-    G : NetworkX graph
-        A graph after surgery.
-    """
     G = G_origin.copy()
     w = nx.get_edge_attributes(G, weight)
 
@@ -218,13 +184,11 @@ print("Sample node attributes:")
 for node, attrs in list(G_t.nodes(data=True))[:5]:  # Adjust sample size as needed
     print(f"Node {node}: {attrs}")
     
-import multiprocessing
-print("Number of available processors:", multiprocessing.cpu_count())
 
 print('Ricci curvature computation started')
 import time
 start_time = time.time()
-orf3 = OllivierRicci(G_t, method="ATD", alpha=0.5, base=math.e, exp_power=1, proc=200, verbose="INFO")
+orf3 = OllivierRicci(G_t, method="ATD", alpha=0.5, base=math.e, exp_power=1, verbose="INFO")
 
 # Do Ricci flow for 2 iterations
 orf3.compute_ricci_flow(iterations=30)
