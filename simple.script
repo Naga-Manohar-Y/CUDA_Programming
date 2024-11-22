@@ -22,7 +22,7 @@ run_jobs() {
     for alg in $algorithms; do
         for step in $step_sizes; do
             srun --nodes=1 --ntasks=1 -c 1 --time=00:30:00 --exclusive \
-                python sim-example.py $graph_file $label_file $alg $step >>res-$alg-$step.out &
+                python simple.py $graph_file $label_file $alg $step >>res-$alg-$step.out &
         done
     done
 }
