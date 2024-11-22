@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1                     ### Single task since it's one graph
 #SBATCH --cpus-per-task=1              ### One CPU per task
 #SBATCH --mem-per-cpu=16000            ### 16GB memory
-#SBATCH --partition=medium             ### Cheaha Partition
+#SBATCH --partition=general             ### Cheaha Partition
 #SBATCH --time=1:00:00                 ### Estimated time
 #SBATCH -A r00827
 #SBATCH --output=%x.out                ### Slurm output file
